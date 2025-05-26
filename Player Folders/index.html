@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbit Adventures - Character Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Merriweather:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        medieval: ['MedievalSharp', 'cursive'],
+                    },
+                    colors: {
+                        'hobbit-green': '#5A6F3A',
+                        'hobbit-brown': '#6D4C41',
+                        'hobbit-parchment': '#F0EAD6',
+                        'hobbit-parchment-light': '#FBFBF5',
+                        'hobbit-dark-text': '#3E2723',
+                        'hobbit-light-text': '#FBFBFB',
+                        'hobbit-gold': '#B08D57',
+                        'hobbit-red': '#9E4242',
+                    },
+                    boxShadow: {
+                        'hobbit': '0 2px 5px rgba(74, 59, 49, 0.3), 0 0 0 1px rgba(176, 141, 87, 0.5) inset',
+                        'inner-light': 'inset 0 1px 2px rgba(0,0,0,0.15)',
+                        'button-hobbit': '2px 2px 0px #A37F4F, 4px 4px 0px #4A3B31',
+                        'button-hobbit-active': '1px 1px 0px #A37F4F, 2px 2px 0px #4A3B31',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Additional styles specific to this HTML, supplementing style.css */
+        .tooltip { position: relative; display: inline-block; cursor: help; }
+        .tooltip .tooltiptext { visibility: hidden; width: 250px; background-color: #3E2723; color: #FBFBFB; text-align: left; border-radius: 8px; padding: 12px; position: absolute; z-index: 60; bottom: 130%; left: 50%; margin-left: -125px; opacity: 0; transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; font-size: 0.85rem; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 1px solid #B08D57; transform: translateY(10px) scale(0.95); }
+        .tooltip .tooltiptext::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border-width: 6px; border-style: solid; border-color: #3E2723 transparent transparent transparent; }
+        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; transform: translateY(0) scale(1); }
+
+        .tab-button.active { background-color: #5A6F3A; color: #FBFBFB; border-bottom: 4px solid #B08D57; font-weight: 700; box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1); }
+        .tab-button { transition: background-color 0.2s ease, color 0.2s ease, border-bottom-color 0.2s ease; padding-top: 0.85rem; padding-bottom: 0.85rem; }
+
+        .input-hobbit, .input-hobbit-sm, .input-hobbit-readonly {
+            margin-top: 0.25rem; display: block; width: 100%; border-radius: 0.25rem;
+            border: 1px solid #A37F4F; padding: 0.5rem 0.75rem; background-color: #FBFBF5;
+            color: #3E2723; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .input-hobbit-sm { width: 4rem; text-align: center; }
+        .input-hobbit-readonly { background-color: #EADDC5 !important; cursor: default; color: #5a5047; }
+        .input-hobbit:focus, .input-hobbit-sm:focus { border-color: #B08D57; box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.3), inset 0 1px 3px rgba(0,0,0,0.1); outline: none; }
+        textarea.input-hobbit { min-height: 80px; }
+
+        .button-hobbit-base {
+            padding: 0.5rem 1rem; border-radius: 0.25rem; font-weight: 600;
+            transition: background-color 0.1s ease-in-out, transform 0.05s ease-in-out, box-shadow 0.05s ease;
+            border-width: 2px; border-style: solid;
+            box-shadow: 2px 2px 0px #A37F4F, 4px 4px 0px #4A3B31;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+        }
+        .button-hobbit-base:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #A37F4F, 2px 2px 0px #4A3B31; }
+        .button-hobbit-action { background-color: #5A6F3A; color: #FBFBFB; border-color: #4A5B2F; }
+        .button-hobbit-action:hover { background-color: #6B8048; }
+        .button-hobbit-save { background-color: #4A7C9B; color: white; border-color: #3A627A; }
+        .button-hobbit-save:hover { background-color: #5A8CB0; }
+        .button-hobbit-load { background-color: #5A8B48; color: white; border-color: #4A6F3A; }
+        .button-hobbit-load:hover { background-color: #6B9F58; }
+        .button-hobbit-export { background-color: #7E57C2; color: white; border-color: #6A48A0; }
+        .button-hobbit-export:hover { background-color: #8D6ACF; }
+        .button-hobbit-clear { background-color: #9E4242; color: white; border-color: #8A3232; }
+        .button-hobbit-clear:hover { background-color: #AF5252; }
+        .button-hobbit-import { background-color: #B08D57; color: #3E2723; border-color: #9A7A4A; }
+        .button-hobbit-import:hover { background-color: #C09D67; }
+
+
+        .button-hobbit-sm { 
+            padding: 0.1rem 0.3rem; 
+            font-size: 0.7rem;    
+            min-width: 20px;      
+            line-height: 1;       
+        }
+        .button-toggle-panel { 
+            padding: 0.1rem 0.4rem; font-size: 0.65rem; line-height: 1;
+            position: absolute; top: 0.5rem; right: 0.5rem;
+            background-color: rgba(109, 76, 65, 0.5); 
+            color: #FBFBFB;
+            border: 1px solid rgba(176, 141, 87, 0.5); 
+            border-radius: 0.25rem;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            z-index: 10; 
+        }
+        .button-toggle-panel:hover { background-color: rgba(109, 76, 65, 0.7); }
+
+        #fixedPanelTogglesLeft, #fixedPanelTogglesRight {
+            position: fixed;
+            top: 0.5rem; 
+            z-index: 45; 
+            display: flex;
+            gap: 0.5rem;
+        }
+        #fixedPanelTogglesLeft { left: 0.5rem; }
+        #fixedPanelTogglesRight { right: 0.5rem; }
+
+        #fixedPanelTogglesLeft button, #fixedPanelTogglesRight button {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+            font-family: 'MedievalSharp', cursive;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            transition: background-color 0.1s ease-in-out;
+            border-width: 1px;
+            border-style: solid;
+            background-color: #8C6D46; 
+            color: #FBFBFB;
+            border-color: #6D4C41;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        #fixedPanelTogglesLeft button:hover, #fixedPanelTogglesRight button:hover {
+            background-color: #A37F4F; 
+        }
+
+
+        .skills-container { display: flex; flex-direction: column; gap: 1rem; }
+        .skill-tier { border: 1px solid #A37F4F; border-radius: 0.35rem; padding: 0.75rem; background-color: rgba(240, 234, 214, 0.2); }
+        .skill-tier-title { font-family: 'MedievalSharp', cursive; color: #4A3B31; font-size: 1.1rem; margin-bottom: 0.5rem; border-bottom: 1px solid #8C6D46; padding-bottom: 0.25rem; }
+        .skill-tier-content {
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 0.75rem; 
+        }
+        .skill-item {
+            padding: 0.5rem 0.75rem; 
+            border: 1px solid #B08D57; 
+            border-radius: 0.35rem; 
+            background-color: #FBFBF5;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            min-height: 100px; 
+            position: relative; /* Added for absolute positioning of skill-icon */
+        }
+        .skill-item:hover { background-color: #F5F0E5; box-shadow: 1px 1px 4px rgba(0,0,0,0.1); }
+        .skill-item.locked { opacity: 0.65; background-color: #EFE8D9; cursor: not-allowed; border-color: #C1B09A; }
+        .skill-item.locked label, .skill-item.locked span:not(.skill-prereq) { color: #78685A; }
+        .skill-item.locked button { background-color: #B0A08C !important; cursor: not-allowed; box-shadow: none !important; transform: none !important; }
+        .skill-item.maxed { border-left: 4px solid #B08D57; background-color: #F0F5E8; }
+        .skill-item.auto-granted { border-left: 4px solid #4A7C9B; background-color: #e0e8f0; }
+        .skill-item input[type="checkbox"] { margin-right: 0.4rem; accent-color: #5A6F3A; transform: scale(1); cursor: pointer; }
+        .skill-item input[type="checkbox"]:disabled { cursor: not-allowed; accent-color: #9DAA90; }
+        .skill-prereq { font-size: 0.7rem; color: #6D4C41; font-style: italic; }
+        .skill-cost-level { font-size: 0.75rem; color: #5A6F3A; }
+        .skill-description { font-size: 0.75rem; color: #4A3B31; line-height: 1.3; flex-grow: 1; }
+        .skill-item .flex.justify-between.items-center { margin-bottom: 0.25rem; }
+        .skill-item .text-xs.text-gray-700 { margin-top: 0.25rem; }
+        .skill-item button.button-hobbit-action { padding: 0.2rem 0.5rem; font-size: 0.7rem; margin-top: auto; }
+
+
+        #diceLog .log-entry { border-bottom: 1px dashed #B08D57; padding-bottom: 0.35rem; margin-bottom: 0.35rem; }
+
+
+        .inventory-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-bottom: 1px solid #E0D4B0; }
+
+
+        .ability-score-controls { display: flex; align-items: center; justify-content: center; margin-top: 0.25rem; }
+        .ability-score-controls button { margin: 0 0.15rem; }
+
+    </style>
+</head>
+<body class="bg-hobbit-parchment text-hobbit-dark-text antialiased">
+
+    <div id="fixedPanelTogglesLeft">
+        <button onclick="toggleSectionVisibility('customDiceRollerFixed')">Dice Roller</button>
+        <button onclick="toggleSectionVisibility('diceRollerSectionFixed')">Dice Log</button>
+    </div>
+    <div id="fixedPanelTogglesRight">
+        <button onclick="toggleSectionVisibility('quickNotesArea')">Quick Notes</button>
+    </div>
+
+    <div id="fixedTopLeft" class="fixed top-16 left-4 z-30 space-y-3">
+        <section id="customDiceRollerFixed" class="relative bg-hobbit-parchment/90 backdrop-blur-sm p-3 rounded-lg shadow-hobbit border-2 border-hobbit-gold w-80 section-hobbit-border">
+            <h2 class="text-lg font-medieval text-hobbit-green mb-2 border-b border-hobbit-brown pb-1 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 text-hobbit-brown"><path d="M10 3.75a2.25 2.25 0 0 0-2.25 2.25v.5c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-.5A2.25 2.25 0 0 0 10 3.75Z" /><path fill-rule="evenodd" d="M10 0a.75.75 0 0 0-.75.75V1.5h-3A2.75 2.75 0 0 0 3.5 4.25v3.25A2.75 2.75 0 0 0 6.25 10.5h7.5A2.75 2.75 0 0 0 16.5 7.5V4.25A2.75 2.75 0 0 0 13.75 1.5h-3V.75A.75.75 0 0 0 10 0Zm0 11.25a2.25 2.25 0 0 0-2.25 2.25v.5c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-.5a2.25 2.25 0 0 0-2.25-2.25Z" clip-rule="evenodd" /><path d="M10 15a2.25 2.25 0 0 0-2.25 2.25v.5c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-.5A2.25 2.25 0 0 0 10 15Z" /></svg>
+                Custom Dice
+            </h2>
+            <div class="grid grid-cols-3 gap-2 items-end text-sm">
+                <div><label for="numDice" class="block text-xs font-medium text-hobbit-brown"># Dice:</label><input type="number" id="numDice" value="1" min="1" class="input-hobbit-sm w-full text-xs p-1"></div>
+                <div><label for="diceType" class="block text-xs font-medium text-hobbit-brown">Type:</label><select id="diceType" class="input-hobbit-sm w-full text-xs p-1 bg-hobbit-parchment-light"><option value="4">d4</option> <option value="6" selected>d6</option> <option value="8">d8</option><option value="10">d10</option> <option value="12">d12</option> <option value="20">d20</option><option value="100">d100</option></select></div>
+                <div><label for="diceModifier" class="block text-xs font-medium text-hobbit-brown">Mod:</label><input type="number" id="diceModifier" value="0" class="input-hobbit-sm w-full text-xs p-1"></div>
+                <div class="col-span-3"><button onclick="rollCustomDice()" class="button-hobbit-base button-hobbit-action w-full text-sm py-1">Roll Custom</button></div>
+            </div>
+        </section>
+        <section id="diceRollerSectionFixed" class="relative bg-hobbit-parchment/90 backdrop-blur-sm p-3 rounded-lg shadow-hobbit border-2 border-hobbit-gold w-80 section-hobbit-border">
+            <h2 class="text-lg font-medieval text-hobbit-green mb-2 border-b border-hobbit-brown pb-1 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 text-hobbit-brown"><path fill-rule="evenodd" d="M7 2a.75.75 0 0 1 .75.75V4h4.5V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 17 6.75v8.5A2.75 2.75 0 0 1 14.25 18H5.75A2.75 2.75 0 0 1 3 15.25v-8.5A2.75 2.75 0 0 1 5.75 4H6V2.75A.75.75 0 0 1 7 2Zm-1.5 6.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z" clip-rule="evenodd" /></svg>
+                Dice Log
+            </h2>
+            <div id="diceLog" class="h-64 overflow-y-auto text-xs space-y-1 pr-2"><p class="text-gray-600 italic">Dice rolls will appear here...</p></div>
+            <div class="flex justify-between items-center mt-2"><button onclick="clearDiceLog()" class="button-hobbit-base button-hobbit-clear text-xs py-1 px-2">Clear Log</button><span id="autoSaveStatus" class="text-xs text-hobbit-green italic"></span></div>
+        </section>
+    </div>
+    <section id="quickNotesArea" class="relative fixed top-16 right-4 p-3 rounded-lg shadow-hobbit z-30 w-64 h-72 flex flex-col section-hobbit-border">
+        <h2 class="text-lg font-medieval text-hobbit-green mb-2 border-b border-hobbit-brown pb-1 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 text-hobbit-brown"><path d="M5.433 4.066a8.207 8.207 0 0 0-2.183.536.75.75 0 0 0-.5.681v10.106c0 .307.192.581.474.696C3.763 16.303 4.53 16.5 5.25 16.5c1.995 0 3.75-1.014 4.75-2.55V4.066Zm8.317-.001V13.95c1 1.536 2.755 2.55 4.75 2.55.72 0 1.487-.197 2.026-.417a.75.75 0 0 0 .474-.696V5.283a.75.75 0 0 0-.5-.681 8.207 8.207 0 0 0-2.183-.536V13.95c-1-1.536-2.755-2.55-4.75-2.55-.72 0-1.487.197-2.026.417a.75.75 0 0 0-.474.696V5.283a.75.75 0 0 0 .5-.681c.6-.254 1.342-.434 2.183-.535Z" /></svg>
+            Quick Notes
+        </h2>
+        <textarea id="quickNotesTextarea" class="input-hobbit w-full flex-grow text-sm p-2 resize-none" placeholder="Jot down quick thoughts..."></textarea>
+    </section>
+
+    <div class="container mx-auto p-4 pt-24 md:pt-16 max-w-6xl relative main-container">
+         <header class="bg-hobbit-green text-hobbit-light-text p-6 rounded-lg shadow-hobbit mb-6 text-center section-hobbit-art-border relative" style="background-image: url('images/hobbit_hole.png'); background-size: cover; background-position: center center;">
+            <div class="absolute top-2 right-2">
+                <img src="images/fireworks_frame1.png" alt="Fireworks" class="w-12 h-12 opacity-80" onerror="this.style.display='none'">
+            </div>
+            <div class="bg-black bg-opacity-40 p-4 rounded-md inline-block"> <h1 id="sheetTitle" class="text-4xl font-medieval page-title">Hobbit Adventures - Character Sheet</h1>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-1 space-y-6">
+                <section id="characterInfo" class="bg-hobbit-parchment/70 p-6 rounded-lg shadow-hobbit section-hobbit-border">
+                    <h2 class="text-2xl font-medieval text-hobbit-green mb-4 border-b-2 border-hobbit-brown pb-2">Character Basics</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label for="charName" class="block text-sm font-medium text-hobbit-brown">Name:</label><input type="text" id="charName" class="input-hobbit"></div>
+                        <div><label for="playerName" class="block text-sm font-medium text-hobbit-brown">Player:</label><input type="text" id="playerName" class="input-hobbit"></div>
+                        <div><label for="homestead" class="block text-sm font-medium text-hobbit-brown">Homestead:</label><input type="text" id="homestead" class="input-hobbit"></div>
+                        <div><label for="level" class="block text-sm font-medium text-hobbit-brown">Level:</label><input type="number" id="level" value="1" min="1" class="input-hobbit" onchange="handleLevelChange()"></div>
+                        <div class="col-span-2"><label for="background" class="block text-sm font-medium text-hobbit-brown">Background:</label> <input type="text" id="background" class="input-hobbit"></div>
+                    </div>
+                </section>
+                <section id="characterImageSection" class="bg-hobbit-parchment/70 p-6 rounded-lg shadow-hobbit text-center section-hobbit-border">
+                    <h2 class="text-2xl font-medieval text-hobbit-green mb-4 border-b-2 border-hobbit-brown pb-2">Portrait</h2>
+                    <div class="character-portrait-container mb-4">
+                        <img id="characterImageDisplay" src="images/hobbit_idle.png" alt="Character Image" onerror="this.onerror=null; this.src='https://placehold.co/192x192/A0522D/F0EAD6?text=Hobbit&font=medievalsharp';">
+                    </div>
+                    <input type="file" id="charImage" accept="image/*" onchange="displayCharacterImage(event)" class="block w-full text-sm text-hobbit-brown file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-2 file:border-hobbit-brown file:text-sm file:font-semibold file:bg-hobbit-green file:text-hobbit-light-text hover:file:bg-hobbit-brown cursor-pointer file:shadow-button-hobbit file:active:shadow-button-hobbit-active">
+                </section>
+            </div>
+
+            <div class="md:col-span-2 space-y-6">
+                <div class="bg-hobbit-parchment/70 rounded-lg shadow-hobbit section-hobbit-border">
+                    <div class="tab-bar flex border-b-2 border-hobbit-brown">
+                        <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none active font-medieval" onclick="openTab(event, 'mainStats')">Core Stats</button>
+                        <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="openTab(event, 'combat')">Combat</button>
+                        <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="openTab(event, 'professionSkills')">Calling & Skills</button>
+                        <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="openTab(event, 'inventory')">Inventory</button>
+                        <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="openTab(event, 'persona')">Persona</button>
+                        <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="openTab(event, 'notes')">Notes</button>
+                    </div>
+                    <div class="p-6">
+                        <div id="mainStats" class="tab-content active">
+                            <h3 class="text-xl font-medieval text-hobbit-green mb-4">Core Statistics</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+                                <div><label class="block text-sm font-medium text-hobbit-brown">Prof. Bonus:</label><input type="text" id="proficiencyBonus" readonly class="input-hobbit-readonly text-center font-bold"></div>
+                                <div><label class="block text-sm font-medium text-hobbit-brown">Initiative:</label><input type="text" id="initiative" readonly class="input-hobbit-readonly text-center font-bold"><button onclick="rollInitiative()" class="button-hobbit-base button-hobbit-action mt-1 w-full text-sm">Roll</button></div>
+                                <div><label class="block text-sm font-medium text-hobbit-brown">Defense (AC):</label><input type="number" id="defense" value="10" class="input-hobbit text-center"></div>
+                                <div><label class="block text-sm font-medium text-hobbit-brown">Max Fortitude (HP):</label><input type="number" id="fortitudeMax" value="10" readonly class="input-hobbit-readonly text-center font-bold"></div>
+                                <div><label class="block text-sm font-medium text-hobbit-brown">Current Fortitude:</label><input type="number" id="fortitudeCurrent" value="10" class="input-hobbit text-center"></div>
+                                <div><label class="block text-sm font-medium text-hobbit-brown">Resilience Dice:</label><input type="text" id="resilienceDiceTotal" placeholder="e.g., 1d6" class="input-hobbit text-center"></div>
+                                <div><label class="block text-sm font-medium text-hobbit-brown">Spent Resilience:</label><input type="number" id="resilienceDiceSpent" value="0" class="input-hobbit text-center"></div>
+                                <div>
+                                    <label for="skillPointsDisplay" class="block text-sm font-medium text-hobbit-brown">Skill Points:</label>
+                                    <input type="number" id="skillPointsDisplay" value="0" readonly class="input-hobbit-readonly text-center font-bold mb-1">
+                                    <div class="flex items-center">
+                                        <input type="number" id="manualSkillPointsInput" class="input-hobbit w-20 text-xs p-1 mr-1" placeholder="Set">
+                                        <button onclick="applyManualSkillPoints()" class="button-hobbit-base button-hobbit-action text-xs py-0.5 px-1.5">Set</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-medieval text-hobbit-green mb-4 mt-6">Saving Throws</h3>
+                            <div id="savingThrowsList" class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2"></div>
+
+                            <section id="abilityScores" class="mt-6">
+                                <h3 class="text-xl font-medieval text-hobbit-green mb-4 border-t-2 border-hobbit-brown pt-4">Ability Scores</h3>
+                                <p class="text-sm text-hobbit-brown mb-2">Available Points: <span id="abilityScorePointsAvailable" class="font-bold text-hobbit-green">0</span></p>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center">
+                                    <div class="ability-score-item">
+                                        <label for="brawn" class="block text-lg font-semibold text-hobbit-brown font-medieval">Brawn</label>
+                                        <input type="number" id="brawn" value="10" class="input-hobbit-sm text-center mx-auto input-hobbit-readonly" readonly>
+                                        <div class="ability-score-controls">
+                                            <button id="brawnDecreaseBtn" class="button-hobbit-base button-hobbit-clear button-hobbit-sm">-</button>
+                                            <button id="brawnIncreaseBtn" class="button-hobbit-base button-hobbit-action button-hobbit-sm">+</button>
+                                        </div>
+                                        <div id="brawnMod" class="text-md text-hobbit-dark-text">Mod: +0</div>
+                                        <div id="brawnTotal" class="text-xl font-bold text-hobbit-green font-medieval mt-1">10</div>
+                                    </div>
+                                    <div class="ability-score-item">
+                                        <label for="agility" class="block text-lg font-semibold text-hobbit-brown font-medieval">Agility</label>
+                                        <input type="number" id="agility" value="10" class="input-hobbit-sm text-center mx-auto input-hobbit-readonly" readonly>
+                                         <div class="ability-score-controls">
+                                            <button id="agilityDecreaseBtn" class="button-hobbit-base button-hobbit-clear button-hobbit-sm">-</button>
+                                            <button id="agilityIncreaseBtn" class="button-hobbit-base button-hobbit-action button-hobbit-sm">+</button>
+                                        </div>
+                                        <div id="agilityMod" class="text-md text-hobbit-dark-text">Mod: +0</div>
+                                        <div id="agilityTotal" class="text-xl font-bold text-hobbit-green font-medieval mt-1">10</div>
+                                    </div>
+                                    <div class="ability-score-item">
+                                        <label for="sturdiness" class="block text-lg font-semibold text-hobbit-brown font-medieval">Sturdiness</label>
+                                        <input type="number" id="sturdiness" value="10" class="input-hobbit-sm text-center mx-auto input-hobbit-readonly" readonly>
+                                         <div class="ability-score-controls">
+                                            <button id="sturdinessDecreaseBtn" class="button-hobbit-base button-hobbit-clear button-hobbit-sm">-</button>
+                                            <button id="sturdinessIncreaseBtn" class="button-hobbit-base button-hobbit-action button-hobbit-sm">+</button>
+                                        </div>
+                                        <div id="sturdinessMod" class="text-md text-hobbit-dark-text">Mod: +0</div>
+                                        <div id="sturdinessTotal" class="text-xl font-bold text-hobbit-green font-medieval mt-1">10</div>
+                                    </div>
+                                    <div class="ability-score-item">
+                                        <label for="wits" class="block text-lg font-semibold text-hobbit-brown font-medieval">Wits</label>
+                                        <input type="number" id="wits" value="10" class="input-hobbit-sm text-center mx-auto input-hobbit-readonly" readonly>
+                                         <div class="ability-score-controls">
+                                            <button id="witsDecreaseBtn" class="button-hobbit-base button-hobbit-clear button-hobbit-sm">-</button>
+                                            <button id="witsIncreaseBtn" class="button-hobbit-base button-hobbit-action button-hobbit-sm">+</button>
+                                        </div>
+                                        <div id="witsMod" class="text-md text-hobbit-dark-text">Mod: +0</div>
+                                        <div id="witsTotal" class="text-xl font-bold text-hobbit-green font-medieval mt-1">10</div>
+                                    </div>
+                                    <div class="ability-score-item">
+                                        <label for="spirit" class="block text-lg font-semibold text-hobbit-brown font-medieval">Spirit</label>
+                                        <input type="number" id="spirit" value="10" class="input-hobbit-sm text-center mx-auto input-hobbit-readonly" readonly>
+                                         <div class="ability-score-controls">
+                                            <button id="spiritDecreaseBtn" class="button-hobbit-base button-hobbit-clear button-hobbit-sm">-</button>
+                                            <button id="spiritIncreaseBtn" class="button-hobbit-base button-hobbit-action button-hobbit-sm">+</button>
+                                        </div>
+                                        <div id="spiritMod" class="text-md text-hobbit-dark-text">Mod: +0</div>
+                                        <div id="spiritTotal" class="text-xl font-bold text-hobbit-green font-medieval mt-1">10</div>
+                                    </div>
+                                    <div class="ability-score-item">
+                                        <label for="charm" class="block text-lg font-semibold text-hobbit-brown font-medieval">Charm</label>
+                                        <input type="number" id="charm" value="10" class="input-hobbit-sm text-center mx-auto input-hobbit-readonly" readonly>
+                                         <div class="ability-score-controls">
+                                            <button id="charmDecreaseBtn" class="button-hobbit-base button-hobbit-clear button-hobbit-sm">-</button>
+                                            <button id="charmIncreaseBtn" class="button-hobbit-base button-hobbit-action button-hobbit-sm">+</button>
+                                        </div>
+                                        <div id="charmMod" class="text-md text-hobbit-dark-text">Mod: +0</div>
+                                        <div id="charmTotal" class="text-xl font-bold text-hobbit-green font-medieval mt-1">10</div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div id="combat" class="tab-content" style="display:none;">
+                            <h3 class="text-xl font-medieval text-hobbit-green mb-4">Attacks & Combat</h3>
+                            <table class="w-full border-collapse mb-4">
+                                <thead class="bg-hobbit-green text-hobbit-light-text"><tr><th class="p-2 border border-hobbit-brown font-medieval">Weapon</th><th class="p-2 border border-hobbit-brown font-medieval">Atk Bonus</th><th class="p-2 border border-hobbit-brown font-medieval">Damage/Type</th><th class="p-2 border border-hobbit-brown font-medieval">Notes</th><th class="p-2 border border-hobbit-brown font-medieval">Actions</th></tr></thead>
+                                <tbody id="attacksTableBody" class="bg-hobbit-parchment-light"></tbody>
+                            </table>
+                            <button onclick="addAttackRow()" class="button-hobbit-base button-hobbit-action">Add Attack</button>
+                        </div>
+                        <div id="professionSkills" class="tab-content" style="display:none;">
+                            <h3 class="text-xl font-medieval text-hobbit-green mb-4">Calling & Skills</h3>
+                            <div class="mb-6 form-group">
+                                <label for="professionSelect" class="block text-sm font-medium text-hobbit-brown">Calling (Profession):</label>
+                                <div class="flex items-center mt-1"> 
+                                    <select id="professionSelect" onchange="selectProfession()" class="input-hobbit bg-hobbit-parchment-light flex-grow">
+                                        <option value="">-- Select a Calling --</option>
+                                        </select>
+                                    </div>
+                            </div>
+                            <div id="otherProfessionSection" style="display:none;" class="mb-6 p-4 border-2 border-hobbit-brown rounded-md bg-hobbit-parchment/50"><h4 class="font-semibold text-hobbit-brown mb-2 font-medieval">Custom Calling Details:</h4><label for="otherProfessionName" class="block text-sm font-medium text-hobbit-brown">Calling Name:</label><input type="text" id="otherProfessionName" class="input-hobbit mb-2" oninput="updateCustomProfessionDetails()"><label for="otherProfessionDesc" class="block text-sm font-medium text-hobbit-brown">Description/Features:</label><textarea id="otherProfessionDesc" rows="3" class="input-hobbit" oninput="updateCustomProfessionDetails()"></textarea></div>
+                            <div class="mb-4 p-3 bg-hobbit-parchment/50 rounded-md border border-hobbit-gold/50"><p class="text-sm text-hobbit-brown">Calling Skill Points Bonus: <span id="professionSkillPointsDisplay" class="font-bold text-hobbit-green">0</span></p><p class="text-sm text-hobbit-brown">Calling Ability Points: <span id="professionAbilityPointsDisplay" class="font-bold text-hobbit-green">0</span> (Spent: <span id="professionAbilityPointsSpentDisplay" class="font-bold text-hobbit-red">0</span>)</p></div>
+                            <div id="professionFeaturesDisplay" class="mb-6 space-y-2"></div>
+                            <h4 class="text-lg font-medieval text-hobbit-green mb-2">Skills</h4>
+                            <div id="skillsList" class="skills-container"></div>
+                            <div id="customSkillsList" class="mt-4"></div>
+                            <button onclick="addCustomLearnedSkill()" class="button-hobbit-base button-hobbit-action mt-4">Add Custom Learned Skill</button>
+                        </div>
+                        <div id="inventory" class="tab-content" style="display:none;">
+                            <h3 class="text-xl font-medieval text-hobbit-green mb-4">Equipment & Inventory</h3>
+                            <div class="mb-6">
+                                <label for="addItemSelect" class="block text-sm font-medium text-hobbit-brown">Add Item from List:</label>
+                                <div class="flex space-x-2">
+                                    <select id="addItemSelect" class="input-hobbit bg-hobbit-parchment-light flex-grow"><option value="">-- Select an item --</option></select>
+                                    <button onclick="addItemToInventoryFromSelect()" class="button-hobbit-base button-hobbit-action">Add Selected</button>
+                                </div>
+                            </div>
+                            <div class="my-6 p-4 border-2 border-hobbit-brown/50 rounded-md bg-hobbit-parchment/30">
+                                <h4 class="text-md font-medieval text-hobbit-green mb-2">Add Custom Item:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div><label for="customItemName" class="text-xs font-medium text-hobbit-brown">Name:</label><input type="text" id="customItemName" class="input-hobbit text-sm p-1"></div>
+                                    <div><label for="customItemQty" class="text-xs font-medium text-hobbit-brown">Quantity:</label><input type="number" id="customItemQty" value="1" min="1" class="input-hobbit text-sm p-1"></div>
+                                    <div class="md:col-span-2"><label for="customItemDesc" class="text-xs font-medium text-hobbit-brown">Description:</label><input type="text" id="customItemDesc" class="input-hobbit text-sm p-1"></div>
+                                    <div><label for="customItemType" class="text-xs font-medium text-hobbit-brown">Type (e.g., Gear, Simple Melee):</label><input type="text" id="customItemType" class="input-hobbit text-sm p-1"></div>
+                                    <div><label for="customItemDamage" class="text-xs font-medium text-hobbit-brown">Damage (e.g., 1d4 Bludgeoning):</label><input type="text" id="customItemDamage" class="input-hobbit text-sm p-1"></div>
+                                    <div class="md:col-span-2"><label for="customItemEffects" class="text-xs font-medium text-hobbit-brown">Effects/Notes:</label><input type="text" id="customItemEffects" class="input-hobbit text-sm p-1"></div>
+                                </div>
+                                <button onclick="addCustomItemToInventory()" class="button-hobbit-base button-hobbit-action mt-3 text-sm py-1">Add Custom Item</button>
+                            </div>
+                            <h4 class="text-lg font-medieval text-hobbit-green mt-6 mb-2">Carried Items</h4>
+                            <div id="inventoryList" class="space-y-1 bg-hobbit-parchment-light p-3 rounded-md border border-hobbit-gold/50 max-h-96 overflow-y-auto"><p class="text-sm text-gray-500 italic">No items in inventory.</p></div>
+                            <h4 class="text-lg font-medieval text-hobbit-green mt-6 mb-2">Treasure</h4>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div><label for="coinsCP" class="block text-sm font-medium text-hobbit-brown">Copper (CP):</label><input type="number" id="coinsCP" value="0" class="input-hobbit"></div>
+                                <div><label for="coinsSP" class="block text-sm font-medium text-hobbit-brown">Silver (SP):</label><input type="number" id="coinsSP" value="0" class="input-hobbit"></div>
+                                <div><label for="coinsGP" class="block text-sm font-medium text-hobbit-brown">Gold (GP):</label><input type="number" id="coinsGP" value="0" class="input-hobbit"></div>
+                            </div>
+                        </div>
+                        <div id="persona" class="tab-content" style="display:none;">
+                             <h3 class="text-xl font-medieval text-hobbit-green mb-4">Persona & Background</h3>
+                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label for="personalityTraits" class="block text-sm font-medium text-hobbit-brown mb-1">Personality Traits:</label><textarea id="personalityTraits" rows="3" class="input-hobbit w-full bg-hobbit-parchment-light"></textarea></div>
+                                <div><label for="ideals" class="block text-sm font-medium text-hobbit-brown mb-1">Ideals:</label><textarea id="ideals" rows="3" class="input-hobbit w-full bg-hobbit-parchment-light"></textarea></div>
+                                <div><label for="bonds" class="block text-sm font-medium text-hobbit-brown mb-1">Bonds:</label><textarea id="bonds" rows="3" class="input-hobbit w-full bg-hobbit-parchment-light"></textarea></div>
+                                <div><label for="flaws" class="block text-sm font-medium text-hobbit-brown mb-1">Flaws:</label><textarea id="flaws" rows="3" class="input-hobbit w-full bg-hobbit-parchment-light"></textarea></div>
+                            </div>
+                            <h4 class="text-lg font-medieval text-hobbit-green mt-6 mb-2">Appearance</h4>
+                             <textarea id="appearanceNotes" rows="3" class="input-hobbit w-full bg-hobbit-parchment-light" placeholder="Describe your character's appearance..."></textarea>
+                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+                                <div><label for="charAge" class="text-sm text-hobbit-brown">Age:</label><input type="text" id="charAge" class="input-hobbit-sm mx-auto"></div>
+                                <div><label for="charHeight" class="text-sm text-hobbit-brown">Height:</label><input type="text" id="charHeight" class="input-hobbit-sm mx-auto"></div>
+                                <div><label for="charWeight" class="text-sm text-hobbit-brown">Weight:</label><input type="text" id="charWeight" class="input-hobbit-sm mx-auto"></div>
+                                <div><label for="charEyes" class="text-sm text-hobbit-brown">Eyes:</label><input type="text" id="charEyes" class="input-hobbit-sm mx-auto"></div>
+                                <div><label for="charHair" class="text-sm text-hobbit-brown">Hair:</label><input type="text" id="charHair" class="input-hobbit-sm mx-auto"></div>
+                                <div><label for="charSkin" class="text-sm text-hobbit-brown">Skin:</label><input type="text" id="charSkin" class="input-hobbit-sm mx-auto"></div>
+                             </div>
+                        </div>
+                        <div id="notes" class="tab-content" style="display:none;">
+                            <h3 class="text-xl font-medieval text-hobbit-green mb-4">Features, Traits & Notes</h3>
+                            <textarea id="featuresTraits" rows="6" class="input-hobbit w-full bg-hobbit-parchment-light" placeholder="General features, racial traits, and other notes..."></textarea>
+                            <button onclick="addCustomAbility()" class="button-hobbit-base button-hobbit-action mt-2">Add Custom Feature</button>
+                            <h4 class="text-lg font-medieval text-hobbit-green mt-6 mb-2">Allies & Organizations</h4>
+                            <textarea id="notesAllies" rows="4" class="input-hobbit w-full bg-hobbit-parchment-light" placeholder="Notes on allies, contacts, and organizations..."></textarea>
+                            
+                            <h4 class="text-lg font-medieval text-hobbit-green mt-6 mb-2">Allies & Notable Figures</h4>
+                            <div id="notableFiguresContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                <!-- 
+                                <div class="bg-hobbit-parchment-light p-3 rounded-md shadow-hobbit border border-hobbit-gold/50 text-center">
+                                    <img src="images/gandalf.png" alt="Gandalf" class="w-20 h-20 rounded-full mx-auto mb-2 object-cover border-2 border-hobbit-brown" onerror="this.style.display='none'">
+                                    <p class="font-semibold text-hobbit-brown">Gandalf</p>
+                                    <p class="text-xs text-gray-600">Wizard, Friend</p>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="saveLoadSection" class="mt-6 bg-hobbit-parchment/70 p-6 rounded-lg shadow-hobbit section-hobbit-art-border">
+            <h2 class="text-2xl font-medieval text-hobbit-green mb-4 border-b-2 border-hobbit-brown pb-2">Manage Character Data</h2>
+            <div class="flex flex-wrap gap-3 justify-center items-center">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="saveCharacterData()" class="button-hobbit-base button-hobbit-save px-3 py-2 text-sm">Save Character</button>
+                    <button onclick="loadCharacterDataPrompt()" class="button-hobbit-base button-hobbit-load px-3 py-2 text-sm">Load Character</button>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="exportCharacterData()" class="button-hobbit-base button-hobbit-export px-3 py-2 text-sm">Export JSON</button>
+                    <div class="relative">
+                        <input type="file" id="importFile" accept=".json" onchange="importCharacterData(event)" class="hidden">
+                        <button onclick="document.getElementById('importFile').click()" class="button-hobbit-base button-hobbit-import w-full sm:w-auto px-3 py-2 text-sm">Import JSON</button>
+                    </div>
+                </div>
+                <button onclick="clearCharacterData()" class="button-hobbit-base button-hobbit-clear px-3 py-2 text-sm">Clear All Saved Data</button>
+            </div>
+        </section>
+        <button id="personaToggle" onclick="togglePersonaSidebar()" class="fixed bottom-4 right-4 bg-hobbit-brown text-hobbit-light-text p-3 rounded-full shadow-lg hover:bg-hobbit-green z-50 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-hobbit-gold focus:ring-offset-2 focus:ring-offset-hobbit-parchment">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z" clip-rule="evenodd" /></svg>
+        </button>
+        <aside id="personaSidebar" class="fixed top-0 right-0 h-full w-80 bg-hobbit-parchment/95 backdrop-blur-sm shadow-xl p-6 transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto border-l-2 border-hobbit-gold">
+            <h3 class="text-2xl font-medieval text-hobbit-green mb-4">Character Persona</h3>
+            <div class="space-y-3 text-sm">
+                <div><label class="block text-sm font-semibold text-hobbit-brown mb-1">Personality Traits:</label><p id="sidebarPersonalityTraits" class="p-2 border rounded-md bg-hobbit-parchment-light shadow-inner-light min-h-[4em] whitespace-pre-wrap"></p></div>
+                <div><label class="block text-sm font-semibold text-hobbit-brown mb-1">Ideals:</label><p id="sidebarIdeals" class="p-2 border rounded-md bg-hobbit-parchment-light shadow-inner-light min-h-[4em] whitespace-pre-wrap"></p></div>
+                <div><label class="block text-sm font-semibold text-hobbit-brown mb-1">Bonds:</label><p id="sidebarBonds" class="p-2 border rounded-md bg-hobbit-parchment-light shadow-inner-light min-h-[4em] whitespace-pre-wrap"></p></div>
+                <div><label class="block text-sm font-semibold text-hobbit-brown mb-1">Flaws:</label><p id="sidebarFlaws" class="p-2 border rounded-md bg-hobbit-parchment-light shadow-inner-light min-h-[4em] whitespace-pre-wrap"></p></div>
+            </div>
+            <button onclick="togglePersonaSidebar()" class="button-hobbit-base button-hobbit-action mt-6 w-full">Close Persona</button>
+        </aside>
+    </div>
+
+    <footer class="text-center p-4 mt-8 text-sm text-hobbit-brown font-medieval">
+        <img src="images/campfire.png" alt="Campfire" class="inline-block h-8 w-8 mr-2 opacity-75" onerror="this.style.display='none'">
+        <p class="inline-block">Hobbit Adventures Character Sheet v<span id="sheetVersionDisplay">7.1.3</span>. Inspired by the works of J.R.R. Tolkien.</p>
+    </footer>
+
+    <script src="hobbit_data_items.js"></script>
+    <script src="hobbit_data_calling.js"></script>
+    <script src="hobbit_data_skills.js"></script>
+    <script src="script.js"></script>
+    <script src="asset_integration.js"></script>
+</body>
+</html>

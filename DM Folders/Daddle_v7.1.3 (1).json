@@ -1,0 +1,226 @@
+{
+  "version": "7.1.3",
+  "charName": "Daddle Thisnuts",
+  "playerName": "Caetano",
+  "homestead": "A Comfy Hole",
+  "level": 1,
+  "background": "A digger from the neighborhood",
+  "abilities": {
+    "brawn": 8,
+    "agility": 12,
+    "sturdiness": 10,
+    "wits": 9,
+    "spirit": 8,
+    "charm": 8
+  },
+  "baseAbilities": {
+    "brawn": 8,
+    "agility": 8,
+    "sturdiness": 8,
+    "wits": 8,
+    "spirit": 8,
+    "charm": 8
+  },
+  "abilityPointsAvailable": 0,
+  "customLearnedSkills": [],
+  "uiVisibility": {
+    "quickNotesArea": true,
+    "customDiceRollerFixed": true,
+    "diceRollerSectionFixed": true
+  },
+  "fortitudeMax": 6,
+  "fortitudeCurrent": 6,
+  "resilienceDiceTotal": "1d6",
+  "resilienceDiceSpent": 0,
+  "defense": 10,
+  "inventory": [
+    {
+      "name": "Kitchen Knife",
+      "damage": "1d3 Piercing",
+      "type": "Simple Melee",
+      "finesse": true,
+      "description": "Sharp enough for vegetables, or a very desperate situation. Counts as a Dagger (1d4) if well-made.",
+      "category": "weapons/common",
+      "id": "item_1747860090654_j3jtf7urj",
+      "quantity": 1,
+      "equipped": false,
+      "effects": []
+    },
+    {
+      "name": "Sturdy Spade",
+      "damage": "1d4 Bludgeoning",
+      "type": "Simple Melee",
+      "description": "Useful for digging victory gardens or fending off pests. Counts as a Club.",
+      "category": "weapons/common",
+      "id": "item_1747860090656_v9cd2lpui",
+      "quantity": 1,
+      "equipped": false,
+      "effects": []
+    },
+    {
+      "name": "Sling",
+      "damage": "1d4 Bludgeoning",
+      "type": "Simple Ranged",
+      "range": "30/120",
+      "description": "For discouraging squirrels or overly curious Goblins. Requires stones.",
+      "category": "weapons/common",
+      "id": "item_1747860090656_hgtqsw73a",
+      "quantity": 1,
+      "equipped": false,
+      "effects": []
+    },
+    {
+      "name": "Patched Woolen Cloak",
+      "ac_bonus": 0,
+      "type": "Clothing",
+      "description": "Offers some warmth against a chill wind.",
+      "category": "armor/common",
+      "id": "item_1747860090657_rbmtoigqk",
+      "quantity": 1,
+      "equipped": false,
+      "effects": []
+    },
+    {
+      "name": "Tinderbox",
+      "description": "Flint, steel, and tinder for starting fires.",
+      "category": "gear/common",
+      "id": "item_1747860090658_rj1nc6158",
+      "quantity": 1,
+      "equipped": false,
+      "effects": []
+    },
+    {
+      "name": "A handful of interesting buttons",
+      "description": "Starting equipment",
+      "effects": [],
+      "id": "item_1747860090658_jnos5mhkk",
+      "quantity": 1,
+      "equipped": false
+    },
+    {
+      "name": "Small Coil of Rope (25ft)",
+      "description": "Always handy.",
+      "category": "gear/common",
+      "id": "item_1747860090659_ugrfoj0az",
+      "quantity": 1,
+      "equipped": false,
+      "effects": []
+    }
+  ],
+  "coinsCP": 10,
+  "coinsSP": 5,
+  "coinsGP": 0,
+  "featuresTraits": "Hobbit Resilience: Advantage on saving throws against being frightened.\nHobbit Nimbleness: Can move through the space of any creature larger than yours.\nBrave Little Souls: Once per long rest, reroll a failed attack, check, or save.\n\n--- CALLING: Tunnel-rat (Expert Digger) ---\nSome Hobbits are more curious about what lies beneath the surface. Tunnel-rats are adept at navigating tight spaces, finding hidden paths, and have a knack for delicate work.",
+  "personalityTraits": "Has a habit of talking to earthworms while digging and treats every root like an old friend.",
+  "ideals": "Believes the world would be better if everyone just stayed home and minded their compost.",
+  "bonds": "Keeps a pressed flower from his garden in his pocket and won’t go anywhere without it.",
+  "flaws": "Prone to wandering off mid-conversation if he spots an unusual rock or patch of soil.",
+  "appearanceNotes": "Daddle is a young hobbit with tousled brown hair and bright blue eyes",
+  "charAge": "36",
+  "charHeight": "3'6\"",
+  "charWeight": "60 lbs",
+  "charEyes": "Blue",
+  "charHair": "Brown, curly",
+  "charSkin": "Fair",
+  "notesAllies": "",
+  "quickNotesTextarea": "",
+  "professionKey": "tunnelrat",
+  "otherProfessionName": "",
+  "otherProfessionDesc": "",
+  "savingThrowsProf": {
+    "saveAgilityProf": true,
+    "saveWitsProf": true,
+    "saveBrawnProf": false,
+    "saveSturdinessProf": false,
+    "saveSpiritProf": false,
+    "saveCharmProf": false
+  },
+  "learnedSkills": {
+    "skillStealth": true,
+    "skillPerception": true
+  },
+  "currentCharacterSkillPoints": 1,
+  "professionSkillPointsBonus": 1,
+  "professionBonusApplied": true,
+  "professionAbilityPointsTotal": 2,
+  "spentProfessionAbilityPoints": 0,
+  "learnedProfessionAbilities": {},
+  "professionAutoSkills": [],
+  "initialEquipmentSet": true,
+  "attacks": [
+    {
+      "name": "Kitchen Knife",
+      "damage": "1d3 Piercing",
+      "notes": "Simple Melee, Finesse"
+    },
+    {
+      "name": "Sturdy Spade",
+      "damage": "1d4 Bludgeoning",
+      "notes": "Simple Melee"
+    },
+    {
+      "name": "Sling",
+      "damage": "1d4 Bludgeoning",
+      "notes": "Simple Ranged (Range: 30/120)"
+    }
+  ],
+  "diceLog": [
+    {
+      "type": "System",
+      "result": "Character data imported.",
+      "details": "Daddle_v7.1.3.json",
+      "timestamp": "06:20:01 PM",
+      "isAutoSave": false
+    },
+    {
+      "type": "System",
+      "result": "Character Data Saved!",
+      "details": "Manual Save",
+      "timestamp": "06:20:00 PM",
+      "isAutoSave": false
+    },
+    {
+      "type": "System",
+      "result": "Character Data Saved!",
+      "details": "Manual Save",
+      "timestamp": "05:46:17 PM",
+      "isAutoSave": false
+    },
+    {
+      "type": "System",
+      "result": "Character Data Saved!",
+      "details": "Manual Save",
+      "timestamp": "05:45:41 PM",
+      "isAutoSave": false
+    },
+    {
+      "type": "System",
+      "result": "Keen Eyes learned.",
+      "details": "Cost: 1 AP.",
+      "timestamp": "05:42:35 PM",
+      "isAutoSave": false
+    },
+    {
+      "type": "System",
+      "result": "Quiet Step learned.",
+      "details": "Cost: 1 AP.",
+      "timestamp": "05:42:33 PM",
+      "isAutoSave": false
+    },
+    {
+      "type": "System",
+      "result": "Saved Data Cleared.",
+      "details": "Sheet reset.",
+      "timestamp": "05:38:20 PM",
+      "isAutoSave": false
+    },
+    {
+      "type": "System",
+      "result": "New Sheet Initialized",
+      "details": "Version 7.1.3",
+      "timestamp": "05:38:20 PM",
+      "isAutoSave": false
+    }
+  ],
+  "charImage": null
+}

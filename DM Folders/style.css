@@ -1,0 +1,367 @@
+/* style.css for Hobbit Adventures Character Sheet & DM Dashboard */
+
+body {
+    background-image: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png'), linear-gradient(to bottom, #F0EAD6, #E0D4B0);
+    background-color: #F0EAD6;
+    background-attachment: fixed;
+    font-family: 'Open Sans', sans-serif;
+    color: #3E2723;
+}
+
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: rgba(109, 76, 65, 0.1); border-radius: 6px; border: 1px solid rgba(176, 141, 87, 0.3); }
+::-webkit-scrollbar-thumb { background: #8C6D46; border-radius: 6px; border: 2px solid #F0EAD6; }
+::-webkit-scrollbar-thumb:hover { background: #795548; }
+
+.font-medieval { font-family: 'MedievalSharp', cursive; }
+.font-merriweather { font-family: 'Merriweather', serif; }
+
+.bg-hobbit-green { background-color: #5A6F3A; }
+.text-hobbit-green { color: #5A6F3A; }
+.border-hobbit-green { border-color: #5A6F3A; }
+.fill-hobbit-green { fill: #5A6F3A; }
+
+
+.bg-hobbit-brown { background-color: #6D4C41; }
+.text-hobbit-brown { color: #6D4C41; }
+.border-hobbit-brown { border-color: #6D4C41; }
+.fill-hobbit-brown { fill: #6D4C41; }
+
+.bg-hobbit-parchment { background-color: #F0EAD6; }
+.text-hobbit-parchment { color: #F0EAD6; }
+.border-hobbit-parchment { border-color: #F0EAD6; }
+
+.bg-hobbit-parchment-light { background-color: #FBFBF5; }
+.fill-hobbit-parchment-light { fill: #FBFBF5; }
+
+
+.text-hobbit-dark-text { color: #3E2723; }
+.text-hobbit-light-text { color: #FBFBFB; }
+
+.border-hobbit-gold { border-color: #B08D57; }
+.text-hobbit-gold { color: #B08D57; }
+.fill-hobbit-gold { fill: #B08D57; }
+
+
+.bg-hobbit-red { background-color: #9E4242; }
+.text-hobbit-red { color: #9E4242; }
+
+.shadow-hobbit { box-shadow: 0 2px 5px rgba(74, 59, 49, 0.3), 0 0 0 1px rgba(176, 141, 87, 0.5) inset; }
+.shadow-inner-light { box-shadow: inset 0 1px 2px rgba(0,0,0,0.15); }
+.shadow-button-hobbit { box-shadow: 2px 2px 0px #A37F4F, 4px 4px 0px #4A3B31; }
+.shadow-button-hobbit-active { box-shadow: 1px 1px 0px #A37F4F, 2px 2px 0px #4A3B31; }
+
+#personaSidebar { border-left: 3px solid #B08D57; z-index: 50; /* Ensure Persona sidebar is on top */ }
+#personaSidebar p { background-color: #FBFBFB; border: 1px solid #D1C7B7; padding: 0.5rem; border-radius: 0.25rem; min-height: 3em; }
+
+h1, h2, h3, h4, h5, h6 { font-family: 'MedievalSharp', cursive; color: #4A3B31; }
+h1.page-title { color: #FBFBFB; }
+
+label { font-weight: 600; color: #6D4C41; }
+
+@media (max-width: 1024px) {
+    #fixedPanelTogglesLeft, #fixedPanelTogglesRight {
+        position: relative;
+        width: 100%;
+        top: auto; left: auto; right: auto;
+        margin-bottom: 0.5rem;
+        justify-content: center;
+    }
+    #fixedTopLeft, #fixedTopLeftDM { /* Apply to both player and DM fixed panels */
+        position: relative; width: 100%; margin-bottom: 1rem;
+        top: auto; left: auto; right: auto; z-index: auto;
+    }
+     #quickNotesArea:not(.hidden), #quickNotesAreaDM:not(.hidden) { /* Apply to both player and DM notes */
+        position: relative; width: 100%; margin-bottom: 1rem;
+        top: auto; left: auto; right: auto; z-index: auto;
+    }
+    .container.main-container { margin-top: 1rem; }
+}
+ @media (min-width: 1025px) {
+     .container.main-container { margin-top: 3.5rem; }
+ }
+
+
+.icon-sm { width: 1.25rem; height: 1.25rem; display: inline-block; vertical-align: middle; }
+.icon-md { width: 1.5rem; height: 1.5rem; display: inline-block; vertical-align: middle; }
+
+.section-hobbit-art-border {
+    border: 4px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%236D4C41' fill-opacity='0.3'%3E%3Crect x='0' y='0' width='5' height='5'/%3E%3Crect x='10' y='0' width='5' height='5'/%3E%3Crect x='5' y='5' width='5' height='5'/%3E%3Crect x='15' y='5' width='5' height='5'/%3E%3Crect x='0' y='10' width='5' height='5'/%3E%3Crect x='10' y='10' width='5' height='5'/%3E%3Crect x='5' y='15' width='5' height='5'/%3E%3Crect x='15' y='15' width='5' height='5'/%3E%3C/g%3E%3C/svg%3E") 4 stretch;
+    padding: 1rem;
+}
+.section-hobbit-border {
+    border: 2px solid #6D4C41;
+    box-shadow: 0 0 0 2px #B08D57;
+}
+
+.ability-score-item .text-md {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-top: 0.25rem; /* Added margin to move "Mod" text down */
+}
+
+.ability-score-item .text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+/* Fixed panels for both player and DM */
+#quickNotesArea, #quickNotesAreaDM {
+    background-image: url('https://www.transparenttextures.com/patterns/old-paper.png'), linear-gradient(to bottom right, #F0EAD6, #D2B48C);
+    border: 5px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238C6D46;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236D4C41;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='60' height='60' rx='8' ry='8' fill='url(%23grad)'/%3E%3Cpath d='M5 0 V60 M55 0 V60 M0 5 H60 M0 55 H60' stroke='%234A3B31' stroke-width='2'/%3E%3C/svg%3E") 10 / 10px / 0 stretch;
+    border-radius: 3px 10px 10px 3px;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.25), inset 0 0 5px rgba(0,0,0,0.1);
+    font-family: 'MedievalSharp', cursive;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out, height 0.3s ease-in-out, padding 0.3s ease-in-out, margin 0.3s ease-in-out, border 0.3s ease-in-out;
+    z-index: 35;
+    position: fixed;
+    top: 4rem;
+    right: 0.5rem;
+}
+#fixedTopLeft, #fixedTopLeftDM { /* Apply to both player and DM fixed panels */
+    position: fixed;
+    top: 4rem;
+    left: 0.5rem;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+
+#quickNotesArea.hidden,
+#customDiceRollerFixed.hidden,
+#diceRollerSectionFixed.hidden,
+#quickNotesAreaDM.hidden, /* DM specific */
+#customDiceRollerFixedDM.hidden, /* DM specific */
+#diceLogSectionFixedDM.hidden /* DM specific */
+{
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+    visibility: hidden;
+    pointer-events: none;
+    height: 0 !important;
+    overflow: hidden;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-width: 0 !important;
+}
+
+
+#quickNotesArea h2, #customDiceRollerFixed h2, #diceRollerSectionFixed h2,
+#quickNotesAreaDM h2, #customDiceRollerFixedDM h2, #diceLogSectionFixedDM h2 { /* Apply to both player and DM fixed panel headers */
+    color: #4A3B31;
+    border-bottom-color: #8C6D46;
+}
+#quickNotesTextarea, #dmQuickNotesTextarea { /* Apply to both player and DM notes textareas */
+    background-color: rgba(245, 235, 220, 0.6);
+    border: 1px dashed #8C6D46;
+    color: #3E2723;
+    font-family: 'Merriweather', serif;
+    line-height: 1.6;
+    padding: 0.5rem;
+    border-radius: 3px;
+}
+
+.input-hobbit-sm.input-hobbit-readonly {
+    background-color: #EADDC5 !important;
+    cursor: default;
+    color: #5a5047;
+}
+
+#diceLog .log-entry.latest-log-entry, #dmDiceLog .log-entry.latest-log-entry {
+    background-color: rgba(176, 141, 87, 0.15);
+    border-left: 3px solid #B08D57;
+    padding-left: 0.5rem;
+    font-weight: bold;
+    border-radius: 3px;
+    margin-left: -0.5rem;
+}
+
+#diceLog .log-entry.latest-log-entry span.font-semibold,
+#diceLog .log-entry.latest-log-entry strong,
+#dmDiceLog .log-entry.latest-log-entry span.font-semibold,
+#dmDiceLog .log-entry.latest-log-entry strong {
+    color: #6D4C41;
+}
+
+#saveLoadSection .flex-wrap > div {
+    margin-bottom: 0.5rem;
+}
+#saveLoadSection button {
+    min-width: 120px;
+}
+
+/* Character Portrait Frame */
+.character-portrait-container {
+    position: relative;
+    width: 192px; /* Match image display size if no internal padding desired */
+    height: 192px; /* Match image display size */
+    margin-left: auto;
+    margin-right: auto;
+    /* background-image: url('images/wooden_frame.png'); REMOVED - Parent section will have the frame */
+    /* background-size: 100% 100%; REMOVED */
+    /* padding: 10px; REMOVED or adjust if needed for image positioning within this div */
+    display: flex; /* Added to center image if it's smaller */
+    justify-content: center; /* Added */
+    align-items: center; /* Added */
+}
+
+#characterImageDisplay {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.35rem;
+}
+
+/* Skill Item Icons & Layout */
+.skill-item {
+    position: relative;
+    padding: 0.5rem 0.75rem; /* Default padding */
+    padding-right: 2.5rem; /* Increased right padding for icon (40px) */
+}
+
+.skill-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px; /* Position from the right edge of the skill-item's padding box */
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+    object-fit: contain; /* Ensure icon scales nicely if it's not square */
+}
+
+/* Combat Section Icons */
+.combat-weapon-icon {
+    width: 24px; /* Slightly smaller for table consistency */
+    height: 24px;
+    margin-right: 6px;
+    vertical-align: middle;
+    object-fit: contain;
+}
+
+/* Calling/Profession Icons */
+.calling-icon {
+    width: 32px; /* Consistent with other similar icons */
+    height: 32px;
+    margin-left: 0.5rem; /* Tailwind's ml-2 */
+    vertical-align: middle; /* Ensure it aligns well with the select box */
+    object-fit: contain;
+}
+
+/* Animation for special events */
+@keyframes hobbitDance {
+    0% { background-image: url('images/hobbit_dance_frame1.png'); }
+    25% { background-image: url('images/hobbit_dance_frame2.png'); }
+    50% { background-image: url('images/hobbit_dance_frame3.png'); }
+    75% { background-image: url('images/hobbit_dance_frame4.png'); }
+    100% { background-image: url('images/hobbit_dance_frame1.png'); }
+}
+
+@keyframes fireworks {
+    0% { background-image: url('images/fireworks_frame1.png'); }
+    50% { background-image: url('images/fireworks_frame2.png'); }
+    100% { background-image: url('images/fireworks_frame1.png'); }
+}
+
+.hobbit-dance-animation {
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: hobbitDance 1.2s steps(1) infinite;
+}
+
+.fireworks-animation {
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: fireworks 0.8s steps(1) infinite;
+}
+
+/* Wooden frame for UI elements */
+.wooden-frame-border {
+    border: 12px solid transparent; /* This width is for the border image */
+    border-image-source: url('images/wooden_frame.png');
+    border-image-slice: 30; /* Slice value for the image */
+    border-image-repeat: stretch; /* How the border image repeats */
+    padding: 2px; /* Minimal padding INSIDE the border image, content padding is handled by the section itself */
+    background-clip: padding-box; /* Important for border-image with rounded corners if any */
+}
+/* Ensure sections that get wooden-frame-border have their own content padding */
+#characterImageSection.wooden-frame-border {
+    padding: 1.5rem; /* Original p-6 from index.html, applied AFTER frame padding */
+}
+
+
+/* Item icons in inventory */
+.inventory-item-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Footer styling with campfire */
+footer {
+    position: relative;
+    padding-bottom: 40px; /* Space for the campfire */
+}
+
+.footer-campfire {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background-image: url('images/campfire.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+}
+
+/* General UI styles */
+.tooltip { position: relative; display: inline-block; cursor: help; }
+.tooltip .tooltiptext { visibility: hidden; width: 250px; background-color: #3E2723; color: #FBFBFB; text-align: left; border-radius: 8px; padding: 12px; position: absolute; z-index: 60; bottom: 130%; left: 50%; margin-left: -125px; opacity: 0; transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; font-size: 0.85rem; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 1px solid #B08D57; transform: translateY(10px) scale(0.95); }
+.tooltip .tooltiptext::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border-width: 6px; border-style: solid; border-color: #3E2723 transparent transparent transparent; }
+.tooltip:hover .tooltiptext { visibility: visible; opacity: 1; transform: translateY(0) scale(1); }
+
+.tab-button.active { background-color: #5A6F3A; color: #FBFBFB; border-bottom: 4px solid #B08D57; font-weight: 700; box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1); }
+.tab-button { transition: background-color 0.2s ease, color 0.2s ease, border-bottom-color 0.2s ease; padding-top: 0.85rem; padding-bottom: 0.85rem; }
+
+.input-hobbit, .input-hobbit-sm, .input-hobbit-readonly {
+    margin-top: 0.25rem; display: block; width: 100%; border-radius: 0.25rem;
+    border: 1px solid #A37F4F; padding: 0.5rem 0.75rem; background-color: #FBFBF5;
+    color: #3E2723; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input-hobbit-sm { width: 4rem; text-align: center; }
+.input-hobbit-readonly { background-color: #EADDC5 !important; cursor: default; color: #5a5047; }
+.input-hobbit:focus, .input-hobbit-sm:focus { border-color: #B08D57; box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.3), inset 0 1px 3px rgba(0,0,0,0.1); outline: none; }
+textarea.input-hobbit { min-height: 80px; }
+
+.button-hobbit-base {
+    padding: 0.5rem 1rem; border-radius: 0.25rem; font-weight: 600;
+    transition: background-color 0.1s ease-in-out, transform 0.05s ease-in-out, box-shadow 0.05s ease;
+    border-width: 2px; border-style: solid;
+    box-shadow: 2px 2px 0px #A37F4F, 4px 4px 0px #4A3B31;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+}
+.button-hobbit-base:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #A37F4F, 2px 2px 0px #4A3B31; }
+.button-hobbit-action { background-color: #5A6F3A; color: #FBFBFB; border-color: #4A5B2F; }
+.button-hobbit-action:hover { background-color: #6B8048; }
+.button-hobbit-save { background-color: #4A7C9B; color: white; border-color: #3A627A; }
+.button-hobbit-save:hover { background-color: #5A8CB0; }
+.button-hobbit-load { background-color: #5A8B48; color: white; border-color: #4A6F3A; }
+.button-hobbit-load:hover { background-color: #6B9F58; }
+.button-hobbit-export { background-color: #7E57C2; color: white; border-color: #6A48A0; }
+.button-hobbit-export:hover { background-color: #8D6ACF; }
+.button-hobbit-clear { background-color: #9E4242; color: white; border-color: #8A3232; }
+.button-hobbit-clear:hover { background-color: #AF5252; }
+.button-hobbit-import { background-color: #B08D57; col

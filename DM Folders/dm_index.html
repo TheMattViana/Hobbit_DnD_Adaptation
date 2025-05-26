@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbit Adventures - DM Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Merriweather:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css"> <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        medieval: ['MedievalSharp', 'cursive'],
+                    },
+                    colors: {
+                        'hobbit-green': '#5A6F3A',
+                        'hobbit-brown': '#6D4C41',
+                        'hobbit-parchment': '#F0EAD6',
+                        'hobbit-parchment-light': '#FBFBF5',
+                        'hobbit-dark-text': '#3E2723',
+                        'hobbit-light-text': '#FBFBFB',
+                        'hobbit-gold': '#B08D57',
+                        'hobbit-red': '#9E4242',
+                    },
+                    boxShadow: {
+                        'hobbit': '0 2px 5px rgba(74, 59, 49, 0.3), 0 0 0 1px rgba(176, 141, 87, 0.5) inset',
+                        'inner-light': 'inset 0 1px 2px rgba(0,0,0,0.15)',
+                        'button-hobbit': '2px 2px 0px #A37F4F, 4px 4px 0px #4A3B31',
+                        'button-hobbit-active': '1px 1px 0px #A37F4F, 2px 2px 0px #4A3B31',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-hobbit-parchment text-hobbit-dark-text antialiased">
+
+    <div id="fixedPanelTogglesLeft" class="fixed top-2 left-2 z-40 flex gap-2">
+        <button onclick="dm.toggleSectionVisibility('customDiceRollerFixedDM')" class="button-hobbit-base button-hobbit-action text-xs py-1 px-2">DM Dice</button>
+        <button onclick="dm.toggleSectionVisibility('diceLogSectionFixedDM')" class="button-hobbit-base button-hobbit-action text-xs py-1 px-2">DM Log</button>
+    </div>
+    <div id="fixedPanelTogglesRight" class="fixed top-2 right-2 z-40 flex gap-2">
+        <button onclick="dm.toggleSectionVisibility('quickNotesAreaDM')" class="button-hobbit-base button-hobbit-action text-xs py-1 px-2">DM Notes</button>
+    </div>
+
+    <div id="fixedTopLeftDM" class="fixed top-16 left-4 z-30 space-y-3">
+        <section id="customDiceRollerFixedDM" class="relative bg-hobbit-parchment/90 backdrop-blur-sm p-3 rounded-lg shadow-hobbit border-2 border-hobbit-gold w-80 section-hobbit-border">
+            <h2 class="text-lg font-medieval text-hobbit-green mb-2 border-b border-hobbit-brown pb-1 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 text-hobbit-brown"><path d="M10 3.75a2.25 2.25 0 0 0-2.25 2.25v.5c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-.5A2.25 2.25 0 0 0 10 3.75Z" /><path fill-rule="evenodd" d="M10 0a.75.75 0 0 0-.75.75V1.5h-3A2.75 2.75 0 0 0 3.5 4.25v3.25A2.75 2.75 0 0 0 6.25 10.5h7.5A2.75 2.75 0 0 0 16.5 7.5V4.25A2.75 2.75 0 0 0 13.75 1.5h-3V.75A.75.75 0 0 0 10 0Zm0 11.25a2.25 2.25 0 0 0-2.25 2.25v.5c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-.5a2.25 2.25 0 0 0-2.25-2.25Z" clip-rule="evenodd" /><path d="M10 15a2.25 2.25 0 0 0-2.25 2.25v.5c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-.5A2.25 2.25 0 0 0 10 15Z" /></svg>
+                DM Custom Dice
+            </h2>
+            <div class="grid grid-cols-3 gap-2 items-end text-sm">
+                <div><label for="dmNumDiceFixed" class="block text-xs font-medium text-hobbit-brown"># Dice:</label><input type="number" id="dmNumDiceFixed" value="1" min="1" class="input-hobbit-sm w-full text-xs p-1"></div>
+                <div><label for="dmDiceTypeFixed" class="block text-xs font-medium text-hobbit-brown">Type:</label><select id="dmDiceTypeFixed" class="input-hobbit-sm w-full text-xs p-1 bg-hobbit-parchment-light"><option value="4">d4</option> <option value="6" selected>d6</option> <option value="8">d8</option><option value="10">d10</option> <option value="12">d12</option> <option value="20">d20</option><option value="100">d100</option></select></div>
+                <div><label for="dmDiceModifierFixed" class="block text-xs font-medium text-hobbit-brown">Mod:</label><input type="number" id="dmDiceModifierFixed" value="0" class="input-hobbit-sm w-full text-xs p-1"></div>
+                <div class="col-span-3"><button onclick="dm.rollCustomDiceFixed()" class="button-hobbit-base button-hobbit-action w-full text-sm py-1">Roll Custom</button></div>
+            </div>
+        </section>
+        <section id="diceLogSectionFixedDM" class="relative bg-hobbit-parchment/90 backdrop-blur-sm p-3 rounded-lg shadow-hobbit border-2 border-hobbit-gold w-80 section-hobbit-border">
+            <h2 class="text-lg font-medieval text-hobbit-green mb-2 border-b border-hobbit-brown pb-1 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 text-hobbit-brown"><path fill-rule="evenodd" d="M7 2a.75.75 0 0 1 .75.75V4h4.5V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 17 6.75v8.5A2.75 2.75 0 0 1 14.25 18H5.75A2.75 2.75 0 0 1 3 15.25v-8.5A2.75 2.75 0 0 1 5.75 4H6V2.75A.75.75 0 0 1 7 2Zm-1.5 6.5a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z" clip-rule="evenodd" /></svg>
+                DM Dice Log
+            </h2>
+            <div id="dmDiceLogFixed" class="h-64 overflow-y-auto text-xs space-y-1 pr-2"><p class="text-gray-600 italic">Dice rolls will appear here...</p></div>
+            <div class="flex justify-between items-center mt-2"><button onclick="dm.clearDiceLog()" class="button-hobbit-base button-hobbit-clear text-xs py-1 px-2">Clear Log</button><span id="dmAutoSaveStatus" class="text-xs text-hobbit-green italic"></span></div>
+        </section>
+    </div>
+    <section id="quickNotesAreaDM" class="relative fixed top-16 right-4 p-3 rounded-lg shadow-hobbit z-30 w-64 h-72 flex flex-col section-hobbit-border">
+        <h2 class="text-lg font-medieval text-hobbit-green mb-2 border-b border-hobbit-brown pb-1 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2 text-hobbit-brown"><path d="M5.433 4.066a8.207 8.207 0 0 0-2.183.536.75.75 0 0 0-.5.681v10.106c0 .307.192.581.474.696C3.763 16.303 4.53 16.5 5.25 16.5c1.995 0 3.75-1.014 4.75-2.55V4.066Zm8.317-.001V13.95c1 1.536 2.755 2.55 4.75 2.55.72 0 1.487-.197 2.026-.417a.75.75 0 0 0 .474-.696V5.283a.75.75 0 0 0-.5-.681 8.207 8.207 0 0 0-2.183-.536V13.95c-1-1.536-2.755-2.55-4.75-2.55-.72 0-1.487.197-2.026.417a.75.75 0 0 0-.474.696V5.283a.75.75 0 0 0 .5-.681c.6-.254 1.342-.434 2.183-.535Z" /></svg>
+            DM Quick Notes
+        </h2>
+        <textarea id="dmQuickNotesTextarea" class="input-hobbit w-full flex-grow text-sm p-2 resize-none" placeholder="Jot down quick thoughts..."></textarea>
+    </section>
+
+
+    <div class="container mx-auto p-4 pt-8 max-w-7xl relative main-container">
+        <header class="bg-hobbit-red text-hobbit-light-text p-6 rounded-lg shadow-hobbit mb-6 text-center section-hobbit-art-border" style="background-image: url('images/hobbit_hole.png'); background-size: cover; background-position: center center;">
+            <div class="bg-black bg-opacity-40 p-4 rounded-md inline-block">
+                <h1 id="sheetTitle" class="text-4xl font-medieval page-title">Hobbit Adventures - DM Dashboard</h1>
+            </div>
+        </header>
+
+        <div class="bg-hobbit-parchment/70 rounded-lg shadow-hobbit section-hobbit-border">
+            <div class="tab-bar flex border-b-2 border-hobbit-brown">
+                <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none active font-medieval" onclick="dm.openDMTab(event, 'playerOverview')">Player Overview</button>
+                <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="dm.openDMTab(event, 'encounterTracker')">Encounter</button>
+                <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="dm.openDMTab(event, 'monsterManual')">Monster Manual</button>
+                <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="dm.openDMTab(event, 'itemsReference')">Items Reference</button>
+                <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="dm.openDMTab(event, 'skillsReference')">Skills Reference</button>
+                <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="dm.openDMTab(event, 'callingsReference')">Callings Reference</button>
+                <button class="tab-button flex-1 py-3 px-4 text-center font-semibold text-hobbit-brown hover:bg-hobbit-green hover:text-hobbit-light-text focus:outline-none font-medieval" onclick="dm.openDMTab(event, 'diceRollerDM')">Dice Roller (Tab)</button>
+            </div>
+            <div class="p-6">
+                <div id="playerOverview" class="dm-tab-content active">
+                    <h3 class="text-xl font-medieval text-hobbit-green mb-4">Player Characters</h3>
+                    <div class="mb-4 p-4 border-2 border-hobbit-brown/50 rounded-md bg-hobbit-parchment/30">
+                        <label for="importPlayersFile" class="block text-sm font-medium text-hobbit-brown mb-2">Import Player Character(s) JSON (from player sheets):</label>
+                        <input type="file" id="importPlayersFile" accept=".json" multiple onchange="dm.importPlayerCharacters(event)" class="block w-full text-sm text-hobbit-brown file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-2 file:border-hobbit-brown file:text-sm file:font-semibold file:bg-hobbit-gold file:text-hobbit-dark-text hover:file:bg-hobbit-brown hover:file:text-hobbit-light-text cursor:pointer file:shadow-button-hobbit file:active:shadow-button-hobbit-active">
+                        <button onclick="dm.clearAllPlayers()" class="button-hobbit-base button-hobbit-clear px-3 py-2 text-sm mt-3">Clear All Loaded Players</button>
+                    </div>
+                    <div id="playerSummaryList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <p class="text-gray-600 italic">No player characters loaded yet. Import JSON files above.</p>
+                    </div>
+                </div>
+
+                <div id="encounterTracker" class="dm-tab-content" style="display:none;">
+                    <h3 class="text-xl font-medieval text-hobbit-red mb-4">Current Encounter</h3>
+                    <div class="mb-4 p-4 border-2 border-hobbit-brown/50 rounded-md bg-hobbit-parchment/30">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="addPlayerToEncounterSelect" class="block text-sm font-medium text-hobbit-brown mb-1">Add Player:</label>
+                                <div class="flex gap-2">
+                                    <select id="addPlayerToEncounterSelect" class="input-hobbit bg-hobbit-parchment-light flex-grow">
+                                        <option value="">-- Select Player --</option>
+                                    </select>
+                                    <button onclick="dm.addSelectedPlayerToEncounter()" class="button-hobbit-base button-hobbit-action text-xs py-1 px-2">Add</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="addMonsterToEncounterSelect" class="block text-sm font-medium text-hobbit-brown mb-1">Add Monster:</label>
+                                <div class="flex gap-2">
+                                    <select id="addMonsterToEncounterSelect" class="input-hobbit bg-hobbit-parchment-light flex-grow">
+                                        <option value="">-- Select Monster --</option>
+                                    </select>
+                                    <button onclick="dm.addSelectedMonsterToEncounter()" class="button-hobbit-base button-hobbit-action text-xs py-1 px-2">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <button onclick="dm.rollAllInitiative()" class="button-hobbit-base button-hobbit-save px-3 py-2 text-sm">Roll All Initiative</button>
+                            <button onclick="dm.sortInitiative()" class="button-hobbit-base button-hobbit-load px-3 py-2 text-sm">Sort Initiative</button>
+                            <button onclick="dm.clearEncounter()" class="button-hobbit-base button-hobbit-clear px-3 py-2 text-sm">Clear Encounter</button>
+                        </div>
+                    </div>
+
+                    <div id="encounterList" class="space-y-2">
+                        <p class="text-gray-600 italic">Add players or monsters to start an encounter.</p>
+                    </div>
+                </div>
+
+                <div id="monsterManual" class="dm-tab-content" style="display:none;">
+                    <h3 class="text-xl font-medieval text-hobbit-red mb-4">Monster Manual</h3>
+                    <div class="mb-4 p-4 border-2 border-hobbit-brown/50 rounded-md bg-hobbit-parchment/30">
+                        <label for="monsterFilter" class="block text-sm font-medium text-hobbit-brown">Filter Monsters:</label>
+                        <input type="text" id="monsterFilter" class="input-hobbit w-full" placeholder="Search by name, type, or trait..." onkeyup="dm.filterMonsters()">
+                    </div>
+                    <div id="monsterList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        </div>
+                </div>
+
+                <div id="itemsReference" class="dm-tab-content" style="display:none;">
+                    <h3 class="text-xl font-medieval text-hobbit-green mb-4">All Items Reference</h3>
+                    <div class="mb-4 p-4 border-2 border-hobbit-brown/50 rounded-md bg-hobbit-parchment/30">
+                        <label for="itemFilter" class="block text-sm font-medium text-hobbit-brown">Filter Items:</label>
+                        <input type="text" id="itemFilter" class="input-hobbit w-full" placeholder="Search by name, type, or effect..." onkeyup="dm.filterItems()">
+                    </div>
+                    <div id="itemList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        </div>
+                </div>
+
+                <div id="skillsReference" class="dm-tab-content" style="display:none;">
+                    <h3 class="text-xl font-medieval text-hobbit-green mb-4">All Skills Reference</h3>
+                    <div class="mb-4 p-4 border-2 border-hobbit-brown/50 rounded-md bg-hobbit-parchment/30">
+                        <label for="skillFilter" class="block text-sm font-medium text-hobbit-brown">Filter Skills:</label>
+                        <input type="text" id="skillFilter" class="input-hobbit w-full" placeholder="Search by name, ability, or description..." onkeyup="dm.filterSkills()">
+                    </div>
+                    <div id="skillList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        </div>
+                </div>
+
+                <div id="callingsReference" class="dm-tab-content" style="display:none;">
+                    <h3 class="text-xl font-medieval text-hobbit-green mb-4">All Callings Reference</h3>
+                     <div class="mb-4 p-4 border-2 border-hobbit-brown/50 rounded-md bg-hobbit-parchment/30">
+                        <label for="callingFilter" class="block text-sm font-medium text-hobbit-brown">Filter Callings:</label>
+                        <input type="text" id="callingFilter" class="input-hobbit w-full" placeholder="Search by name, ability, or description..." onkeyup="dm.filterCallings()">
+                    </div>
+                    <div id="callingList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        </div>
+                </div>
+
+                 <div id="diceRollerDM" class="dm-tab-content" style="display:none;">
+                    <h3 class="text-xl font-medieval text-hobbit-green mb-4">Dice Roller</h3>
+                    <div class="mb-4 p-4 border-2 border-hobbit-brown/50 rounded-md bg-hobbit-parchment/30">
+                        <div class="grid grid-cols-3 gap-2 items-end text-sm mb-4">
+                            <div><label for="dmNumDice" class="block text-xs font-medium text-hobbit-brown"># Dice:</label><input type="number" id="dmNumDice" value="1" min="1" class="input-hobbit-sm w-full text-xs p-1"></div>
+                            <div><label for="dmDiceType" class="block text-xs font-medium text-hobbit-brown">Type:</label><select id="dmDiceType" class="input-hobbit-sm w-full text-xs p-1 bg-hobbit-parchment-light"><option value="4">d4</option> <option value="6" selected>d6</option> <option value="8">d8</option><option value="10">d10</option> <option value="12">d12</option> <option value="20">d20</option><option value="100">d100</option></select></div>
+                            <div><label for="dmDiceModifier" class="block text-xs font-medium text-hobbit-brown">Mod:</label><input type="number" id="dmDiceModifier" value="0" class="input-hobbit-sm w-full text-xs p-1"></div>
+                            <div class="col-span-3"><button onclick="dm.rollCustomDice()" class="button-hobbit-base button-hobbit-action w-full text-sm py-1">Roll Custom</button></div>
+                        </div>
+                        <h4 class="text-lg font-medieval text-hobbit-green mb-2">Dice Log</h4>
+                        <div id="dmDiceLog" class="h-64 overflow-y-auto text-xs space-y-1 pr-2 border border-hobbit-brown/30 p-2 rounded-md bg-hobbit-parchment-light">
+                            <p class="text-gray-600 italic">Dice rolls will appear here...</p>
+                        </div>
+                        <button onclick="dm.clearDiceLog()" class="button-hobbit-base button-hobbit-clear text-xs py-1 px-2 mt-2">Clear Log</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center p-4 mt-8 text-sm text-hobbit-brown font-medieval">
+        <img src="images/campfire.png" alt="Campfire" class="inline-block h-8 w-8 mr-2 opacity-75" onerror="this.style.display='none'">
+        <p class="inline-block">Hobbit Adventures DM Dashboard. Inspired by the works of J.R.R. Tolkien.</p>
+    </footer>
+
+    <div id="monsterSheetModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-hobbit-parchment p-6 rounded-lg shadow-hobbit section-hobbit-border w-11/12 max-w-2xl max-h-[90vh] overflow-y-auto relative">
+            <button onclick="dm.closeMonsterSheetModal()" class="absolute top-3 right-3 text-hobbit-red hover:text-hobbit-brown text-2xl font-bold">&times;</button>
+            <div id="monsterSheetContent">
+                </div>
+        </div>
+    </div>
+
+    <div id="playerSheetModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-hobbit-parchment p-6 rounded-lg shadow-hobbit section-hobbit-border w-11/12 max-w-2xl max-h-[90vh] overflow-y-auto relative">
+            <button onclick="dm.closePlayerSheetModal()" class="absolute top-3 right-3 text-hobbit-red hover:text-hobbit-brown text-2xl font-bold">&times;</button>
+            <div id="playerSheetContent">
+                </div>
+        </div>
+    </div>
+
+    <script src="hobbit_data_items.js"></script>
+    <script src="hobbit_data_calling.js"></script>
+    <script src="hobbit_data_skills.js"></script>
+    <script src="hobbit_data_monsters.js"></script>
+    <script src="dm_script.js"></script>
+    <script src="asset_integration.js"></script>
+</body>
+</html>
