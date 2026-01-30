@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hobbit Adventures - Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Merriweather:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Merriweather:wght@400;700&family=Open+Sans&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -51,61 +54,84 @@
     <style>
         body {
             background-color: #3E2723;
-            background-image: url('dm/images/mountain.png');
+            background-image: url('dm/images/mountain_background.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
         }
+
         .glass-panel {
             background: rgba(240, 234, 214, 0.85);
             backdrop-filter: blur(8px);
             border: 2px solid #B08D57;
         }
+
         .portal-card {
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
         .portal-card:hover {
             transform: translateY(-5px);
             background: rgba(251, 251, 245, 0.95);
         }
     </style>
 </head>
+
 <body class="flex flex-col items-center justify-center min-h-screen p-4 text-hobbit-dark-text">
 
     <div class="max-w-4xl w-full text-center space-y-12">
-        
+
         <header class="animate-fade-in glass-panel p-8 rounded-xl shadow-hobbit-lg relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-hobbit-gold via-hobbit-green to-hobbit-gold"></div>
+            <div
+                class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-hobbit-gold via-hobbit-green to-hobbit-gold">
+            </div>
             <h1 class="text-5xl md:text-7xl font-medieval text-hobbit-green drop-shadow-md mb-2">Hobbit Adventures</h1>
-            <p class="text-xl font-serif text-hobbit-brown italic">"It's a dangerous business, Frodo, going out your door..."</p>
+            <p class="text-xl font-serif text-hobbit-brown italic">"It's a dangerous business, Frodo, going out your
+                door..."</p>
         </header>
 
         <main class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
             <!-- DM Portal -->
             <a href="dm/index.html" class="group animate-slide-up" style="animation-delay: 0.2s;">
-                <div class="portal-card h-64 flex flex-col items-center justify-center p-8 rounded-xl shadow-hobbit glass-panel cursor-pointer relative overflow-hidden">
-                    <div class="absolute inset-0 bg-hobbit-green opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    <div class="w-16 h-16 mb-4 text-hobbit-brown group-hover:text-hobbit-green transition-colors duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                <div
+                    class="portal-card h-64 flex flex-col items-center justify-center p-8 rounded-xl shadow-hobbit glass-panel cursor-pointer relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-hobbit-green opacity-0 group-hover:opacity-10 transition-opacity duration-300">
+                    </div>
+                    <div
+                        class="w-16 h-16 mb-4 text-hobbit-brown group-hover:text-hobbit-green transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-full h-full">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                         </svg>
                     </div>
-                    <h2 class="text-3xl font-medieval text-hobbit-brown group-hover:text-hobbit-green mb-2 transition-colors">Dungeon Master</h2>
+                    <h2
+                        class="text-3xl font-medieval text-hobbit-brown group-hover:text-hobbit-green mb-2 transition-colors">
+                        Dungeon Master</h2>
                     <p class="text-sm font-serif text-gray-700">Manage encounters, monsters, and the story.</p>
                 </div>
             </a>
 
             <!-- Player Portal -->
             <a href="player/index.html" class="group animate-slide-up" style="animation-delay: 0.4s;">
-                <div class="portal-card h-64 flex flex-col items-center justify-center p-8 rounded-xl shadow-hobbit glass-panel cursor-pointer relative overflow-hidden">
-                    <div class="absolute inset-0 bg-hobbit-gold opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    <div class="w-16 h-16 mb-4 text-hobbit-brown group-hover:text-hobbit-gold transition-colors duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                <div
+                    class="portal-card h-64 flex flex-col items-center justify-center p-8 rounded-xl shadow-hobbit glass-panel cursor-pointer relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-hobbit-gold opacity-0 group-hover:opacity-10 transition-opacity duration-300">
+                    </div>
+                    <div
+                        class="w-16 h-16 mb-4 text-hobbit-brown group-hover:text-hobbit-gold transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-full h-full">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                         </svg>
                     </div>
-                    <h2 class="text-3xl font-medieval text-hobbit-brown group-hover:text-hobbit-gold mb-2 transition-colors">Player Character</h2>
+                    <h2
+                        class="text-3xl font-medieval text-hobbit-brown group-hover:text-hobbit-gold mb-2 transition-colors">
+                        Player Character</h2>
                     <p class="text-sm font-serif text-gray-700">View your character sheet, stats, and inventory.</p>
                 </div>
             </a>
@@ -118,4 +144,5 @@
     </div>
 
 </body>
+
 </html>
